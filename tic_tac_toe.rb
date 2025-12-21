@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# Board class is responsible for holding and displaying the game board
+
 class Board
   attr_reader :cells
 
@@ -8,7 +8,6 @@ class Board
     @cells = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
 
-  # Prints the board in a 3x3 format
   def draw
     puts
     @cells.each_slice(3) do |row|
@@ -18,7 +17,6 @@ class Board
     puts
   end
 
-  # Updates a cell with the player's symbol if it's available
   def update(position, symbol)
     index = position - 1
     return false unless @cells[index].is_a?(Integer)
@@ -27,13 +25,11 @@ class Board
     true
   end
 
-  # Checks if the board is completely filled
   def full?
     @cells.none? { |cell| cell.is_a?(Integer) }
   end
 end
 
-# Player class stores player information
 class Player
   attr_reader :name, :symbol, :moves
 
@@ -43,13 +39,11 @@ class Player
     @moves = []
   end
 
-  # Stores the chosen move
   def add_move(position)
     @moves << position
   end
 end
 
-# Game class controls the game flow
 class Game
   WINNING_COMBINATIONS = [
     [1, 2, 3],
@@ -69,20 +63,17 @@ class Game
     @current_player = @player1
   end
 
-  # Switches the current player
   def switch_player
     @current_player =
       @current_player == @player1 ? @player2 : @player1
   end
 
-  # Checks if the current player has a winning combination
   def winner?
     WINNING_COMBINATIONS.any? do |combo|
       (combo - @current_player.moves).empty?
     end
   end
 
-  # Main game loop
   def play
     puts 'Welcome to Tic Tac Toe!'
 
@@ -121,6 +112,5 @@ class Game
   end
 end
 
-# Start the game
 game = Game.new
 game.play
